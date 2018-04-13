@@ -95,6 +95,9 @@ public class BerkeleyParser {
 		@Option(name = "-outputFile", usage = "Store output in this file instead of printing it to STDOUT.")
 		public String outputFile;
 
+		@Option(name = "-splitBy", usage = "Split tokenized line by this string (Default: \\\\s+)")
+		public String splitBy = "\\s+";
+
 		@Option(name = "-useGoldPOS", usage = "Read data in CoNLL format, including gold part of speech tags.")
 		public boolean goldPOS;
 
@@ -219,7 +222,7 @@ public class BerkeleyParser {
 								.substring(breakIndex + 2, line.length() - 5);
 					}
 					if (!opts.tokenize)
-						sentence = Arrays.asList(line.split("\\s+"));
+						sentence = Arrays.asList(line.split(opts.splitBy));
 					else {
 						sentence = tokenizer.tokenizeLine(line);
 					}
